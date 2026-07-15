@@ -22,7 +22,11 @@ function installing_redis() {
   helm repo update
 
   echo Installing redis
-  helm -n $NS install redis bitnami/redis --wait --version $CHART_VERSION
+  helm -n $NS install redis bitnami/redis \
+  --version $CHART_VERSION \
+  --wait \
+  --set image.repository=technoforte2023/redis \
+  --set image.tag=dev
 
   echo Installed redis service
 
