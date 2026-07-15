@@ -8,7 +8,7 @@ fi
 
 function installing_redis() {
 
-  NS=redis
+  NS=esignet-sunbird
   CHART_VERSION=17.3.14
 
   echo Create $NS namespace

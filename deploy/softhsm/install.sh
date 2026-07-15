@@ -19,7 +19,7 @@ function installing_softhsm() {
 
   # Deploy Softhsm for Esignet.
   echo "Installing Softhsm for esignet"
-  helm -n "$SOFTHSM_NS" install esignet-softhsm mosip/softhsm -f softhsm-values.yaml --version "$SOFTHSM_CHART_VERSION" --wait
+  helm -n "$SOFTHSM_NS" install  esignet-sunbird-softhsm mosip/softhsm -f softhsm-values.yaml --version "$SOFTHSM_CHART_VERSION" --wait
   echo "Installed Softhsm for esignet"
 
   return 0

@@ -6,7 +6,7 @@ if [ $# -ge 1 ] ; then
   export KUBECONFIG=$1
 fi
 
-NS=esignet
+NS=esignet-sunbird
 CHART_VERSION=1.6.2
 echo Create $NS namespace
 kubectl create ns $NS
@@ -30,10 +30,10 @@ function installing_esignet_with_plugins() {
   helm repo update
 
   COPY_UTIL=../copy_cm_func.sh
-  $COPY_UTIL configmap esignet-softhsm-share softhsm $NS
-  $COPY_UTIL configmap postgres-config postgres $NS
+  $COPY_UTIL configmap esignet-sunbird-softhsm-share softhsm $NS
+  #$COPY_UTIL configmap postgres-config postgres $NS
   $COPY_UTIL configmap redis-config redis $NS
-  $COPY_UTIL secret esignet-softhsm softhsm $NS
+  $COPY_UTIL secret esignet-sunbird-softhsm softhsm $NS
   $COPY_UTIL secret redis redis $NS
 
   while true; do
@@ -214,12 +214,12 @@ EOF
 
   extra_env_vars_cm_set=""
   if kubectl get configmap kafka-config -n "$NS" > /dev/null 2>&1; then
-    extra_env_vars_cm_set="--set extraEnvVarsCM={esignet-softhsm-share,kafka-config}"
+    extra_env_vars_cm_set="--set extraEnvVarsCM={esignet-sunbird-softhsm-share,kafka-config}"
   fi
 
 
   echo Installing esignet-with-plugins
-  helm -n $NS install esignet mosip/esignet --version $CHART_VERSION  \
+  helm -n $NS install esignet-sunbird mosip/esignet --version $CHART_VERSION  \
     $ENABLE_INSECURE $plugin_option \
     $ESIGNET_HELM_ARGS \
     $extra_env_vars_cm_set \

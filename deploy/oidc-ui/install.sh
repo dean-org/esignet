@@ -36,7 +36,7 @@ function installing_oidc-ui() {
     id_provider_name="eSignet"
   fi
 
-  NS=esignet
+  NS=esignet-sunbird
   CHART_VERSION=1.6.2
 
   echo Create $NS namespace
@@ -50,7 +50,7 @@ function installing_oidc-ui() {
 
   COPY_UTIL=../copy_cm_func.sh
 
-  ESIGNET_HOST=$(kubectl -n esignet get cm esignet-global -o jsonpath={.data.mosip-esignet-host})
+  ESIGNET_HOST=$(kubectl -n esignet-sunbird get cm esignet-global -o jsonpath={.data.mosip-esignet-host})
 
   echo Installing OIDC UI
   helm -n $NS install oidc-ui mosip/oidc-ui \
@@ -58,7 +58,8 @@ function installing_oidc-ui() {
     --set istio.hosts[0]=$ESIGNET_HOST \
     --set oidc_ui.configmaps.oidc-ui.DEFAULT_THEME="$theme" \
     --set oidc_ui.configmaps.oidc-ui.DEFAULT_LANG="$default_lang" \
-    --set oidc_ui.configmaps.oidc-ui.DEFAULT_ID_PROVIDER_NAME="$id_provider_name"
+    --set oidc_ui.configmaps.oidc-ui.DEFAULT_ID_PROVIDER_NAME="$id_provider_name" \
+    --set oidc_ui.oidc_service_host=esignet-sunbird.esignet-sunbird
 
   kubectl -n $NS  get deploy -o name |  xargs -n1 -t  kubectl -n $NS rollout status
 
