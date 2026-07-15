@@ -32,9 +32,13 @@ function installing_esignet_with_plugins() {
   COPY_UTIL=../copy_cm_func.sh
   $COPY_UTIL configmap esignet-sunbird-softhsm-share softhsm $NS
   #$COPY_UTIL configmap postgres-config postgres $NS
-  $COPY_UTIL configmap redis-config esignet-sunbird $NS
+  #$COPY_UTIL configmap redis-config esignet-sunbird $NS
   $COPY_UTIL secret esignet-sunbird-softhsm softhsm $NS
-  $COPY_UTIL secret redis esignet-sunbird $NS
+  #$COPY_UTIL secret redis esignet-sunbird $NS
+  $COPY_UTIL configmap keycloak-host config-server $NS
+  $COPY_UTIL secret keycloak-client-secrets config-server $NS
+  $COPY_UTIL secret db-common-secrets  postgres $NS
+  $COPY_UTIL configmap config-server-share config-server $NS
 
   while true; do
     read -p "Is Prometheus Service Monitor Operator deployed in the k8s cluster? (y/n): " response
@@ -216,14 +220,32 @@ EOF
   if kubectl get configmap kafka-config -n "$NS" > /dev/null 2>&1; then
     extra_env_vars_cm_set="--set extraEnvVarsCM={esignet-sunbird-softhsm-share,kafka-config}"
   fi
+  
+  read -p "Enter MOSIP eSignet-insurance Host: " ESIGNET_HOST
+  read -p "Enter MOSIP healthservice Host: " SIGNUP_HOST
 
+  kubectl -n "$NS" create configmap esignet-global \
+        --from-literal=mosip-esignet-host="$ESIGNET_HOST" \
+        --from-literal=mosip-signup-host="$SIGNUP_HOST" \
+        --dry-run=client -o yaml | kubectl apply -f -
+
+  read -p "Enter PostgreSQL ip: " POSTGRES_HOST
+
+  kubectl -n "$NS" create configmap postgres-config \
+        --from-literal=database-host="$POSTGRES_HOST" \
+        --from-literal=database-name="mosip_esignet_sunbird" \
+        --from-literal=database-port="5432" \
+        --from-literal=database-username="esignetuser" \
+        --dry-run=client -o yaml | kubectl apply -f -
 
   echo Installing esignet-with-plugins
   helm -n $NS install esignet-sunbird mosip/esignet --version $CHART_VERSION  \
     $ENABLE_INSECURE $plugin_option \
     $ESIGNET_HELM_ARGS \
     $extra_env_vars_cm_set \
-    --set metrics.serviceMonitor.enabled=$servicemonitorflag -f values.yaml --wait
+    --set metrics.serviceMonitor.enabled=$servicemonitorflag -f values.yaml \
+    -f values-sunbird.yaml \
+    --wait
 
   kubectl -n $NS get deploy -o name | xargs -n1 -t kubectl -n $NS rollout status
 
