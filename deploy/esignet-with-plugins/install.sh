@@ -32,9 +32,9 @@ function installing_esignet_with_plugins() {
   COPY_UTIL=../copy_cm_func.sh
   $COPY_UTIL configmap esignet-sunbird-softhsm-share softhsm $NS
   #$COPY_UTIL configmap postgres-config postgres $NS
-  $COPY_UTIL configmap redis-config redis $NS
+  $COPY_UTIL configmap redis-config esignet-sunbird $NS
   $COPY_UTIL secret esignet-sunbird-softhsm softhsm $NS
-  $COPY_UTIL secret redis redis $NS
+  $COPY_UTIL secret redis esignet-sunbird $NS
 
   while true; do
     read -p "Is Prometheus Service Monitor Operator deployed in the k8s cluster? (y/n): " response
