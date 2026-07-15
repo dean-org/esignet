@@ -56,6 +56,8 @@ function installing_oidc-ui() {
   helm -n $NS install oidc-ui mosip/oidc-ui \
     --version $CHART_VERSION \
     --set istio.hosts[0]=$ESIGNET_HOST \
+    --set oidc_ui.configmaps.oidc-ui.REACT_APP_API_BASE_URL="http://esignet-sunbird.esignet-sunbird/v1/esignet" \
+    --set oidc_ui.configmaps.oidc-ui.REACT_APP_SBI_DOMAIN_URI="http://esignet-sunbird.\$NS" \
     --set oidc_ui.configmaps.oidc-ui.DEFAULT_THEME="$theme" \
     --set oidc_ui.configmaps.oidc-ui.DEFAULT_LANG="$default_lang" \
     --set oidc_ui.configmaps.oidc-ui.DEFAULT_ID_PROVIDER_NAME="$id_provider_name" \
