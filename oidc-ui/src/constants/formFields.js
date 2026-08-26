@@ -197,6 +197,93 @@ const knowledgeFields = {
     postfix: "",
     maxLength: "",
     regex: ""
+  },
+  /*
+   * StudentCertificate KBA fields
+   */
+  studentId: {
+    labelText: 'studentId',
+    labelFor: 'Student ID',
+    id: 'studentId',
+    name: 'studentId',
+    type: 'text',
+    format: '',
+    isRequired: true,
+    placeholder: 'studentId_placeholder',
+    infoIcon: '',
+    errorCode: 'invalid_studentId',
+    prefix: '',
+    postfix: '',
+    maxLength: 50,
+    regex: '^[A-Za-z0-9\\-]*$'
+  },
+
+  studentName: {
+    labelText: 'studentName',
+    labelFor: 'Student Name',
+    id: 'studentName',
+    name: 'studentName',
+    type: 'text',
+    format: '',
+    isRequired: true,
+    placeholder: 'studentName_placeholder',
+    infoIcon: '',
+    errorCode: 'invalid_studentName',
+    prefix: '',
+    postfix: '',
+    maxLength: 100,
+    regex: '^[A-Za-z\\s.]*$'
+  },
+
+  dateOfBirth: {
+    labelText: 'dateOfBirth',
+    labelFor: 'Date of Birth',
+    id: 'dateOfBirth',
+    name: 'dateOfBirth',
+    type: 'date',
+    format: 'dd/mm/yyyy',
+    isRequired: true,
+    placeholder: 'dateOfBirth_placeholder',
+    infoIcon: '',
+    errorCode: 'invalid_dateOfBirth',
+    prefix: '',
+    postfix: '',
+    maxLength: '',
+    regex: ''
+  },
+
+  program: {
+    labelText: 'program',
+    labelFor: 'Program',
+    id: 'program',
+    name: 'program',
+    type: 'text',
+    format: '',
+    isRequired: true,
+    placeholder: 'program_placeholder',
+    infoIcon: '',
+    errorCode: 'invalid_program',
+    prefix: '',
+    postfix: '',
+    maxLength: 100,
+    regex: '^[A-Za-z0-9\\s.,]*$'
+  },
+
+  institutionName: {
+    labelText: 'institutionName',
+    labelFor: 'Institution Name',
+    id: 'institutionName',
+    name: 'institutionName',
+    type: 'text',
+    format: '',
+    isRequired: true,
+    placeholder: 'institutionName_placeholder',
+    infoIcon: '',
+    errorCode: 'invalid_institutionName',
+    prefix: '',
+    postfix: '',
+    maxLength: 100,
+    regex: '^[A-Za-z\\s.,0-9]*$'
   }
 }
 
