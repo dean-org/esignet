@@ -284,6 +284,127 @@ const knowledgeFields = {
     postfix: '',
     maxLength: 100,
     regex: '^[A-Za-z\\s.,0-9]*$'
+  },
+  /*
+   * Formar KBA fields
+   */
+  farmerId: {
+    labelText: 'farmerId',
+    labelFor: 'Farmer ID',
+    id: 'farmerId',
+    name: 'farmerId',
+    type: 'text',
+    format: '',
+    isRequired: true,
+    placeholder: 'farmerId_placeholder',
+    infoIcon: '',
+    errorCode: 'invalid_farmerId',
+    prefix: '',
+    postfix: '',
+    maxLength: 50,
+    regex: '^[A-Za-z0-9\\-]*$'
+  },
+
+  name: {
+    labelText: 'name',
+    labelFor: 'Name',
+    id: 'name',
+    name: 'name',
+    type: 'text',
+    format: '',
+    isRequired: true,
+    placeholder: 'name_placeholder',
+    infoIcon: '',
+    errorCode: 'invalid_name',
+    prefix: '',
+    postfix: '',
+    maxLength: 100,
+    regex: '^[A-Za-z\\s.]*$'
+  },
+  
+  dateOfBirth: {
+    labelText: 'dateOfBirth',
+    labelFor: 'Date of Birth',
+    id: 'dateOfBirth',
+    name: 'dateOfBirth',
+    type: 'date',
+    format: 'dd/MM/yyyy',
+    isRequired: true,
+    placeholder: 'dateOfBirth_placeholder',
+    infoIcon: '',
+    errorCode: 'invalid_dateOfBirth',
+    prefix: '',
+    postfix: '',
+    maxLength: '',
+    regex: ''
+  },
+  
+  region: {
+    labelText: 'region',
+    labelFor: 'Region',
+    id: 'region',
+    name: 'region',
+    type: 'text',
+    format: '',
+    isRequired: true,
+    placeholder: 'region_placeholder',
+    infoIcon: '',
+    errorCode: 'invalid_region',
+    prefix: '',
+    postfix: '',
+    maxLength: 100,
+    regex: '^[A-Za-z\\s.,]*$'
+  },
+  
+  district: {
+    labelText: 'district',
+    labelFor: 'District',
+    id: 'district',
+    name: 'district',
+    type: 'text',
+    format: '',
+    isRequired: true,
+    placeholder: 'district_placeholder',
+    infoIcon: '',
+    errorCode: 'invalid_district',
+    prefix: '',
+    postfix: '',
+    maxLength: 100,
+    regex: '^[A-Za-z\\s.,]*$'
+  },
+  
+  village: {
+    labelText: 'village',
+    labelFor: 'Village',
+    id: 'village',
+    name: 'village',
+    type: 'text',
+    format: '',
+    isRequired: true,
+    placeholder: 'village_placeholder',
+    infoIcon: '',
+    errorCode: 'invalid_village',
+    prefix: '',
+    postfix: '',
+    maxLength: 100,
+    regex: '^[A-Za-z\\s.,]*$'
+  },
+  
+  phoneNumber: {
+    labelText: 'phoneNumber',
+    labelFor: 'Phone Number',
+    id: 'phoneNumber',
+    name: 'phoneNumber',
+    type: 'text',
+    format: '',
+    isRequired: true,
+    placeholder: 'phoneNumber_placeholder',
+    infoIcon: '',
+    errorCode: 'invalid_phoneNumber',
+    prefix: '',
+    postfix: '',
+    maxLength: 15,
+    regex: '^[0-9]{10}$'
   }
 }
 
