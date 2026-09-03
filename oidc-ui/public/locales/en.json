@@ -137,7 +137,14 @@
     "program": "Enter Program",
     "program_placeholder": "Program",
     "institutionName": "Enter Institution Name",
-    "institutionName_placeholder": "Institution Name"
+    "institutionName_placeholder": "Institution Name",
+    "farmerId": "Enter Farmer Id",
+    "name": "Enter Farmer Name",
+    "dateOfBirth": "Enter Date of Birth",
+    "region": "Enter Region",
+    "district": Enter District name",
+    "village": "Enter Village name",
+    "phoneNumber": "Enter phone number"
   },
   "LoginQRCode": {
     "scan_with_wallet": "Scan with {{walletName}} to login",
