@@ -142,7 +142,7 @@
     "name": "Enter Farmer Name",
     "dateOfBirth": "Enter Date of Birth",
     "region": "Enter Region",
-    "district": Enter District name",
+    "district": "Enter District name",
     "village": "Enter Village name",
     "phoneNumber": "Enter phone number"
   },
