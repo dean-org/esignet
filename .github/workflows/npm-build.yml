@@ -54,15 +54,19 @@ jobs:
 
     - name: NPM Build for BOB
       env:
-       CI: false
+       CI: 'false'
       if: ${{ inputs.NPM_BUILD_TYPE == 'BOB' }}
       run: |
-         echo "ZIP_DIR=lib" >> $GITHUB_ENV
-         cd ${{ inputs.SERVICE_LOCATION }} && npm run build
+        cd ${{ inputs.SERVICE_LOCATION }}
+        npm run build
 
     - name: Zip Build Application
       if: ${{ !contains(github.ref, 'master') || !contains(github.ref, 'main') }}
-      run: cd ${{ inputs.SERVICE_LOCATION }} && zip -r ${{ inputs.BUILD_ARTIFACT }}.zip ${{ env.ZIP_DIR }}
+      run: |
+        cd ${{ inputs.SERVICE_LOCATION }}
+        echo "ZIP_DIR=${{ inputs.ZIP_DIR }}"
+        ls -la
+        zip -r ${{ inputs.BUILD_ARTIFACT }}.zip ${{ inputs.ZIP_DIR }}
 
     - name: Upload the npm zip file
       if: ${{ !contains(github.ref, 'master') || !contains(github.ref, 'main') }}
