@@ -57,9 +57,8 @@ jobs:
        CI: false
       if: ${{ inputs.NPM_BUILD_TYPE == 'BOB' }}
       run: |
-        echo "ZIP_DIR=${{ inputs.ZIP_DIR }}" >> $GITHUB_ENV
-        cd ${{ inputs.SERVICE_LOCATION }}
-        CI=false npm run build
+         echo "ZIP_DIR=lib" >> $GITHUB_ENV
+         cd ${{ inputs.SERVICE_LOCATION }} && npm run build
 
     - name: Zip Build Application
       if: ${{ !contains(github.ref, 'master') || !contains(github.ref, 'main') }}
