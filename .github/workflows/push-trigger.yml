@@ -36,7 +36,7 @@ jobs:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
       
   build-oidc-ui:
-    uses: mosip/kattu/.github/workflows/npm-build.yml@develop
+    uses: dean-org/esignet/.github/workflows/npm-build.yml@1.6.2-sun
     with:
       SERVICE_LOCATION: oidc-ui
       BUILD_ARTIFACT: oidc
