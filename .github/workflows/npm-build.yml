@@ -6,6 +6,9 @@ on:
       BUILD_ARTIFACT:
         required: true
         type: string
+      ZIP_DIR:
+        required: false
+        type: string
       SERVICE_LOCATION:
         required: true
         type: string
@@ -13,6 +16,10 @@ on:
         required: false
         type: string
         default: 'NG'
+      NODE_VERSION:
+        default: '16'
+        type: string   
+      
     secrets:
       SLACK_WEBHOOK_URL:
         required: true
@@ -28,7 +35,7 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3.7.0
       with:
-        node-version: '16'
+        node-version: ${{ inputs.NODE_VERSION }}
 
     - name: Cache npm dependencies
       uses: actions/cache@v4
@@ -39,16 +46,18 @@ jobs:
           ${{ runner.os }}-npm-
 
     - name: NPM Install
-      run: cd ${{ inputs.SERVICE_LOCATION }} && npm install
+      run: cd ${{ inputs.SERVICE_LOCATION }} && npm install --legacy-peer-deps
 
     - name: NPM Build for NG
       if: ${{ inputs.NPM_BUILD_TYPE == 'NG' }}
       run: cd ${{ inputs.SERVICE_LOCATION }} && npm run-script build -- --prod --base-href . --output-path=dist
 
     - name: NPM Build for BOB
+      env:
+       CI: false
       if: ${{ inputs.NPM_BUILD_TYPE == 'BOB' }}
       run: |
-        echo "ZIP_DIR=lib" >> $GITHUB_ENV
+        echo "ZIP_DIR=${{ inputs.ZIP_DIR }}" >> $GITHUB_ENV
         cd ${{ inputs.SERVICE_LOCATION }}
         CI=false npm run build
 
