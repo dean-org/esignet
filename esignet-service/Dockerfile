@@ -2,10 +2,11 @@
 FROM eclipse-temurin:11-jdk
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends git curl unzip file sudo ca-certificates && \
+    apt-get install -y --no-install-recommends git curl unzip file sudo ca-certificates wget && \
+    wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb -O /tmp/libssl1.1.deb && \
+    dpkg -i /tmp/libssl1.1.deb && \
+    rm -f /tmp/libssl1.1.deb && \
     rm -rf /var/lib/apt/lists/*
-
-
 
 ARG SOURCE
 ARG COMMIT_HASH
