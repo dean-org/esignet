@@ -31,6 +31,7 @@ import io.mosip.esignet.core.exception.InvalidRequestException;
 import org.apache.commons.codec.binary.Hex;
 import org.bouncycastle.util.io.pem.PemObject;
 import org.bouncycastle.util.io.pem.PemReader;
+import org.apache.commons.validator.routines.RegexValidator;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.jose4j.jwk.RsaJsonWebKey;
 import org.jose4j.keys.X509Util;
@@ -64,11 +65,16 @@ public class IdentityProviderUtil {
     private static PathMatcher pathMatcher;
     private static UrlValidator urlValidator;
 
+    // Matches host.tld structure without restricting to IANA-registered TLDs,
+    // so dev/test domains like *.test, *.tst, *.local etc. are accepted.
+    private static final RegexValidator AUTHORITY_VALIDATOR =
+            new RegexValidator("^([a-zA-Z0-9]([a-zA-Z0-9\\-]*[a-zA-Z0-9])?\\.)+[a-zA-Z]{2,}$");
+
     static {
         urlSafeEncoder = Base64.getUrlEncoder().withoutPadding();
         urlSafeDecoder = Base64.getUrlDecoder();
         pathMatcher = new AntPathMatcher();
-        urlValidator = new UrlValidator(ALLOW_ALL_SCHEMES+ALLOW_LOCAL_URLS);
+        urlValidator = new UrlValidator(null, AUTHORITY_VALIDATOR, ALLOW_ALL_SCHEMES + ALLOW_LOCAL_URLS);
     }
 
     /**
