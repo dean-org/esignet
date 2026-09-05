@@ -1,5 +1,10 @@
 #FROM openjdk:11
-FROM eclipse-temurin:11-jdk-focal
+FROM eclipse-temurin:11-jdk
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git curl unzip file sudo ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+
 
 ARG SOURCE
 ARG COMMIT_HASH
