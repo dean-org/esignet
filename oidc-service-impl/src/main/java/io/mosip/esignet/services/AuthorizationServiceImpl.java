@@ -142,8 +142,20 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         authorizationHelperService.validateSendOtpCaptchaToken(otpRequest.getCaptchaToken());
 
         OIDCTransaction transaction = cacheUtilService.getPreAuthTransaction(otpRequest.getTransactionId());
-        if(transaction == null)
+        if(transaction == null){
+            log.info(
+                "SEND_OTP: transaction not found. transactionId={}",
+                otpRequest.getTransactionId()
+            );
             throw new InvalidTransactionException();
+        }
+       log.info(
+            "SEND_OTP: transaction found. transactionId={}, state={}, clientId={}, redirectUri={}",
+            transaction.getTransactionId(),
+            transaction.getState(),
+            transaction.getClientId(),
+            transaction.getRedirectUri()
+        );
 
         transaction = cacheUtilService.updateIndividualIdHashInPreAuthCache(otpRequest.getTransactionId(),
                 otpRequest.getIndividualId());
@@ -191,8 +203,19 @@ public class AuthorizationServiceImpl implements AuthorizationService {
     public AuthCodeResponse getAuthCode(AuthCodeRequest authCodeRequest) throws EsignetException {
         OIDCTransaction transaction = cacheUtilService.getAuthenticatedTransaction(authCodeRequest.getTransactionId());
         if(transaction == null) {
+             log.info(
+                "SEND_OTP: transaction not found. transactionId={}",
+                otpRequest.getTransactionId()
+            );
             throw new InvalidTransactionException();
         }
+        log.info(
+            "SEND_OTP: transaction found. transactionId={}, state={}, clientId={}, redirectUri={}",
+            transaction.getTransactionId(),
+            transaction.getState(),
+            transaction.getClientId(),
+            transaction.getRedirectUri()
+        );
 
         List<String> acceptedClaims = authCodeRequest.getAcceptedClaims();
         List<String> acceptedScopes = authCodeRequest.getPermittedAuthorizeScopes();
@@ -229,8 +252,20 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
     private OIDCTransaction authenticate(AuthRequest authRequest, boolean checkConsentAction) {
         OIDCTransaction transaction = cacheUtilService.getPreAuthTransaction(authRequest.getTransactionId());
-        if(transaction == null)
+        if(transaction == null){
+             log.info(
+                "SEND_OTP: transaction not found. transactionId={}",
+                otpRequest.getTransactionId()
+            );
             throw new InvalidTransactionException();
+        }
+        log.info(
+            "SEND_OTP: transaction found. transactionId={}, state={}, clientId={}, redirectUri={}",
+            transaction.getTransactionId(),
+            transaction.getState(),
+            transaction.getClientId(),
+            transaction.getRedirectUri()
+        );
 
         transaction = cacheUtilService.updateIndividualIdHashInPreAuthCache(authRequest.getTransactionId(),
                 authRequest.getIndividualId());
