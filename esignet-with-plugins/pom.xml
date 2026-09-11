@@ -84,6 +84,12 @@
 		<sunbird-rc-plugin.fileName>sunbird-rc-plugin.jar</sunbird-rc-plugin.fileName>
 		<!-- Local jar lives one level up, in esignet/ -->
 		<sunbird-rc-plugin.localFile>${project.basedir}/../sunbird-rc-plugin-1.3.3.jar</sunbird-rc-plugin.localFile>
+
+		<!-- Excel/CSV authenticator plugin: built locally, same pattern as sunbird-rc-plugin above -->
+		<excel-plugin.version>1.0.0</excel-plugin.version>
+		<excel-plugin.fileName>excel-authenticator-plugin.jar</excel-plugin.fileName>
+		<!-- Local jar lives one level up, in esignet/ -->
+		<excel-plugin.localFile>${project.basedir}/../excel-authenticator-plugin-1.0.0.jar</excel-plugin.localFile>
 	</properties>
 
 	<build>
@@ -120,6 +126,7 @@
 							<type>jar</type>
 						</artifactItem>
 							<!-- sunbird-rc-plugin removed here: it is now copied locally via maven-antrun-plugin below instead of being resolve from a Maven repository. -->
+							<!-- excel-authenticator-plugin also copied locally via maven-antrun-plugin below, same reason. -->
 					</artifactItems>
 					<overWriteReleases>true</overWriteReleases>
 					<overWriteSnapshots>true</overWriteSnapshots>
@@ -143,6 +150,22 @@
 								<echo message="Copying local sunbird-rc-plugin jar from ${sunbird-rc-plugin.localFile}"/>
 								<copy file="${sunbird-rc-plugin.localFile}"
 									  tofile="${project.basedir}/${esignet-plugins.location}/${sunbird-rc-plugin.fileName}"
+									  overwrite="true"/>
+							</target>
+						</configuration>
+					</execution>
+					<!-- Copies the locally-built excel-authenticator-plugin jar (esignet/excel-authenticator-plugin-1.0.0.jar) into the plugins output directory, same as sunbird-rc-plugin above. -->
+					<execution>
+						<id>copy-local-excel-plugin</id>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target>
+								<echo message="Copying local excel-authenticator-plugin jar from ${excel-plugin.localFile}"/>
+								<copy file="${excel-plugin.localFile}"
+									  tofile="${project.basedir}/${esignet-plugins.location}/${excel-plugin.fileName}"
 									  overwrite="true"/>
 							</target>
 						</configuration>
