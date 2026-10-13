@@ -11,3 +11,4 @@ LABEL build_time=${BUILD_TIME}
 
 # copy all files under target/ to the plugins folder
 COPY ./target/*.jar ${plugins_path_env}
+COPY ./vcstore-esignet-plugin.jar ${plugins_path_env}/vcstore-esignet-plugin.jar
