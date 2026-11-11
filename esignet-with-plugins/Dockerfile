@@ -11,3 +11,4 @@ LABEL build_time=${BUILD_TIME}
 
 # copy all files under target/ to the plugins folder
 COPY ./target/*.jar ${plugins_path_env}
+COPY ./mock-plugin-1.3.3.jar ${plugins_path_env}/mock-plugin-1.3.3.jar
